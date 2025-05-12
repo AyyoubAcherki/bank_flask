@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>BankDeposit - Prédiction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            background-color: #1e88e5;
+            padding: 20px;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 2px solid white;
+        }
+
+        .header-title {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 40px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e88e5;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+
+        .radio-group {
+            margin-top: 6px;
+        }
+
+        .radio-group input {
+            margin-right: 6px;
+        }
+
+        input[type="submit"] {
+            background-color: #1e88e5;
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1565c0;
+        }
+
+        .prediction {
+            margin-top: 25px;
+            font-size: 18px;
+            text-align: center;
+            color: #27ae60;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- En-tête avec logo -->
+    <div class="header">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+        <div class="header-title">BankDeposit</div>
+    </div>
+
+    <!-- Conteneur du formulaire -->
+    <div class="container">
+        <h1>Prédiction de dépôt bancaire</h1>
+
+        <form action="/predict" method="POST">
+            <label>Âge :</label>
+            <input type="number" name="age" required>
+
+            <label>Balance :</label>
+            <input type="number" name="balance" required>
+
+            <label>Durée :</label>
+            <input type="number" name="duration" required>
+
+            <label>Campagne :</label>
+            <input type="number" name="campaign" required>
+
+            <label>Précédent :</label>
+            <input type="number" name="previous" required>
+
+            <label>Default :</label>
+<div class="radio-group">
+    <input type="radio" name="default" value="1" required> Oui
+    <input type="radio" name="default" value="0"> Non
+</div>
+
+<label>Housing :</label>
+<div class="radio-group">
+    <input type="radio" name="housing" value="1" required> Oui
+    <input type="radio" name="housing" value="0"> Non
+</div>
+
+<label>Loan :</label>
+<div class="radio-group">
+    <input type="radio" name="loan" value="1" required> Oui
+    <input type="radio" name="loan" value="0"> Non
+</div>
+
+<label>Niveau d'éducation :</label>
+<div class="radio-group">
+    <input type="radio" name="education" value="primary" required> Primaire
+    <input type="radio" name="education" value="secondary"> Secondaire <br>
+    <input type="radio" name="education" value="tertiary"> Tertiaire
+    <input type="radio" name="education" value="unknown"> Inconnu
+</div>
+
+<label>Statut marital :</label>
+<div class="radio-group">
+    <input type="radio" name="marital" value="married"> Marié(e)
+    <input type="radio" name="marital" value="single"> Célibataire
+    <input type="radio" name="marital" value="divorced"> Divorcé(e)
+</div>
+
+<label>Profession :</label>
+<div class="radio-group">
+    <input type="radio" name="job" value="admin"> Admin
+    <input type="radio" name="job" value="blue-collar"> Blue-collar
+    <input type="radio" name="job" value="entrepreneur"> Entrepreneur
+    <input type="radio" name="job" value="housemaid"> Housemaid
+    <input type="radio" name="job" value="management"> Management
+    <input type="radio" name="job" value="retired"> Retraité <br>
+    <input type="radio" name="job" value="self-employed"> Auto-entrepreneur
+    <input type="radio" name="job" value="services"> Services
+    <input type="radio" name="job" value="student"> Étudiant
+    <input type="radio" name="job" value="technician"> Technicien
+    <input type="radio" name="job" value="unemployed"> Sans emploi
+    <input type="radio" name="job" value="unknown"> Inconnu
+</div>
+
+            <input type="submit" value="Lancer la prédiction">
+        </form>
+
+        {% if prediction %}
+            <div class="prediction">{{ prediction }}</div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
